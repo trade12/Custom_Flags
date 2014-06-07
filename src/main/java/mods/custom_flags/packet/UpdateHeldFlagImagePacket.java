@@ -1,0 +1,66 @@
+package mods.custom_flags.packet;
+
+import ibxm.Player;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+import mods.custom_flags.items.ItemFlag;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
+
+/**
+ * Created by Aaron on 3/08/13.
+ */
+public class UpdateHeldFlagImagePacket extends AbstractPacket {
+
+    public static final String channel = "CF.UpdateFlag";
+
+    public static Packet250CustomPayload generatePacket(String user, ItemStack stack){
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        DataOutputStream outputStream = new DataOutputStream(bos);
+
+        try{
+            outputStream.writeUTF(user);
+
+            Packet.writeItemStack(stack, outputStream);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return new Packet250CustomPayload(channel, bos.toByteArray());
+
+    }
+
+    @Override
+    public void process(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+        DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+        String user = null;
+        ItemStack stack = null;
+
+        try{
+
+           user = inputStream.readUTF();
+           stack = Packet.readItemStack(inputStream);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(user != null){
+            EntityPlayer target = ((EntityPlayer)player).worldObj.getPlayerEntityByName(user);
+            if(target != null){
+                ItemStack targetEquip = target.getCurrentEquippedItem();
+                if(targetEquip != null && targetEquip.getItem() instanceof ItemFlag){
+                    target.setCurrentItemOrArmor(0, stack);
+                }
+            }
+
+        }
+    }
+}

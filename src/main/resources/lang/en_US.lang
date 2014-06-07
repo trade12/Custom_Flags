@@ -1,0 +1,31 @@
+
+item.custom_flags:flag.name=Flag
+tile.custom_flags:flagpole.oak.name=Oak Flag Pole
+tile.custom_flags:flagpole.spruce.name=Spruce Flag Pole
+tile.custom_flags:flagpole.birch.name=Birch Flag Pole
+tile.custom_flags:flagpole.jungle.name=Jungle Flag Pole
+tile.custom_flags:flagpole.iron.name=Iron Flag Pole
+
+button.ok=OK
+button.cancel=Cancel
+button.save=Save
+button.load=Load
+button.load.sections=Load Section
+
+gui.splitter.number.x.sections=Number of X Sections
+gui.splitter.number.y.sections=Number of*Y Sections
+gui.splitter.x.section=X Section
+gui.splitter.y.section=Y Section
+
+tool.pen=Pen
+tool.flood=Flood Fill
+tool.dropper=Color Picker
+tool.text=Text
+tool.rectangle=Rectangle
+tool.circle=Oval
+gui.threshold=Threshold
+
+
+
+cf.welcome=Welcome to Custom Flags. Type /cf.instructions for an instruction manual.
+commands.cf.instr.usage=/cf.instructions
